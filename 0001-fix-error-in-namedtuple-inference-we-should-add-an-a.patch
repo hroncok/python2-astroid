@@ -1,0 +1,28 @@
+From 1c1248d1c18b0121d8b7d641edbb2ff7e799db17 Mon Sep 17 00:00:00 2001
+From: "Brian C. Lane" <bcl@redhat.com>
+Date: Tue, 3 Sep 2013 09:14:19 -0700
+Subject: [PATCH] fix error in namedtuple inference, we should add an astng
+ class node *instance* in .bases
+
+From upstream commit:
+https://bitbucket.org/logilab/astroid/commits/5ed6266cab789bc89d882444c938f03953491496
+---
+ brain/py2stdlib.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/brain/py2stdlib.py b/brain/py2stdlib.py
+index 739a4ad..f43bd35 100644
+--- a/brain/py2stdlib.py
++++ b/brain/py2stdlib.py
+@@ -201,7 +201,7 @@ def infer_named_tuple(node, context=None):
+     # we want to return a Class node instance with proper attributes set
+     class_node = nodes.Class(name, 'docstring')
+     # set base class=tuple
+-    class_node.bases.append(nodes.Tuple)
++    class_node.bases.append(nodes.Tuple._proxied)
+     # XXX add __init__(*attributes) method
+     for attr in attributes:
+         fake_node = nodes.EmptyNode()
+-- 
+1.8.3.1
+
