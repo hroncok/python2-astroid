@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -20,7 +20,7 @@ Source0:        https://bitbucket.org/logilab/astroid/get/astroid-version-%{vers
 Patch0:         0001-fix-error-in-namedtuple-inference-we-should-add-an-a.patch
 
 Provides:       python-astroid = %{version}-%{release}
-Obsoletes:      python-astng
+Obsoletes:      python-logilab-astng
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
@@ -115,6 +115,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Fri Sep 13 2013 Brian C. Lane <bcl@redhat.com> 1.0.0-4
+- Fix wrong obsoletes. Should be python-logilab-astng (#1007916)
+
 * Tue Sep 03 2013 Brian C. Lane <bcl@redhat.com> 1.0.0-3
 - Add upstream patch for TypeError bug
 
