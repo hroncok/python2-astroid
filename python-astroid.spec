@@ -1,5 +1,5 @@
 %if 0%{?fedora} > 12
-%global with_python3 0
+%global with_python3 1
 %else
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 %endif
@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -20,14 +20,14 @@ Source0:        https://bitbucket.org/logilab/astroid/get/astroid-version-%{vers
 Patch0:         0001-fix-error-in-namedtuple-inference-we-should-add-an-a.patch
 
 Provides:       python-astroid = %{version}-%{release}
-Obsoletes:      python-logilab-astng <= 0.24.1-3
+Obsoletes:      python-logilab-astng <= 0.24.1
 
 BuildArch:      noarch
-BuildRequires:  python-devel python-setuptools
+BuildRequires:  python-devel python-setuptools python-tools
 BuildRequires:  python-logilab-common >= 0.60.0
 Requires:       python-logilab-common >= 0.60.0
 %if 0%{?with_python3}
-BuildRequires:  python3-devel python3-setuptools
+BuildRequires:  python3-devel python3-setuptools python3-tools
 BuildRequires:  python3-logilab-common >= 0.60.0
 %endif # if with_python3
 
@@ -115,6 +115,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Thu Oct 24 2013 Brian C. Lane <bcl@redhat.com> 1.0.0-6
+- Switching on python3 support
+
 * Tue Sep 17 2013 Brian C. Lane <bcl@redhat.com> 1.0.0-5
 - Switch to versioned obsolete. (#996780)
 
