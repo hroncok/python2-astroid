@@ -5,30 +5,28 @@
 %endif
 
 # This needs to be pulled from the source tarball
-%global commit 1d6914a1a1a0
+%global commit f67f24131b3a
 
 
 Name:           python-astroid
-Version:        1.0.0
-Release:        6%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
 Source0:        https://bitbucket.org/logilab/astroid/get/astroid-version-%{version}.tar.bz2
 
-Patch0:         0001-fix-error-in-namedtuple-inference-we-should-add-an-a.patch
-
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools python-tools
-BuildRequires:  python-logilab-common >= 0.60.0
-Requires:       python-logilab-common >= 0.60.0
+BuildRequires:  python-logilab-common >= 0.61.0
+Requires:       python-logilab-common >= 0.61.0
 %if 0%{?with_python3}
 BuildRequires:  python3-devel python3-setuptools python3-tools
-BuildRequires:  python3-logilab-common >= 0.60.0
+BuildRequires:  python3-logilab-common >= 0.61.0
 %endif # if with_python3
 
 %description
@@ -41,7 +39,7 @@ python module with some additional methods and attributes.
 %package -n python3-astroid
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
-Requires:       python3-logilab-common >= 0.60.0
+Requires:       python3-logilab-common >= 0.61.0
 
 %description -n python3-astroid
 The aim of this module is to provide a common base representation of
@@ -52,7 +50,6 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n logilab-astroid-%{commit}
-%patch0 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -115,6 +112,10 @@ popd
 %endif # with_python3
 
 %changelog
+* Thu Feb 27 2014 Brian C. Lane <bcl@redhat.com> 1.0.1-1
+- Upstream v1.0.1
+  Drop patch included in upstream
+
 * Thu Oct 24 2013 Brian C. Lane <bcl@redhat.com> 1.0.0-6
 - Switching on python3 support
 
