@@ -10,12 +10,14 @@
 
 Name:           python-astroid
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
 Source0:        https://bitbucket.org/logilab/astroid/get/astroid-version-%{version}.tar.bz2
+
+Patch0:         0001-Ignore-illegal-symbols-in-gobject-introspection.patch
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
@@ -50,6 +52,7 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n logilab-astroid-%{commit}
+%patch0 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -112,6 +115,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Fri Feb 28 2014 Brian C. Lane <bcl@redhat.com> 1.0.1-2
+- Add patch to fix gobject introspection of illegal symbol names (dshea)
+
 * Thu Feb 27 2014 Brian C. Lane <bcl@redhat.com> 1.0.1-1
 - Upstream v1.0.1
   Drop patch included in upstream
