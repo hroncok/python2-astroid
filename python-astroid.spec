@@ -5,21 +5,17 @@
 %endif
 
 # This needs to be pulled from the source tarball
-%global commit f67f24131b3a
+%global commit e003574ae51b
 
 
 Name:           python-astroid
-Version:        1.0.1
-Release:        3%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
-Source0:        https://bitbucket.org/logilab/astroid/get/astroid-version-%{version}.tar.bz2
-
-Patch0:         0001-Ignore-illegal-symbols-in-gobject-introspection.patch
-# Fix some gobject introspection false positives (bz #1079643)
-Patch1: 0002-brain-py2gi-Fix-function-detection-on-newer-pygobjec.patch
+Source0:        https://bitbucket.org/logilab/astroid/get/astroid-%{version}.tar.bz2
 
 
 Provides:       python-astroid = %{version}-%{release}
@@ -55,10 +51,6 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n logilab-astroid-%{commit}
-
-%patch0 -p1
-# Fix some gobject introspection false positives (bz #1079643)
-%patch1 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -121,6 +113,10 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Apr 22 2014 Brian C. Lane <bcl@redhat.com> 1.1-1
+- Upstream v1.1
+  Drop patches now included in upstream
+
 * Tue Apr 01 2014 Cole Robinson <crobinso@redhat.com> - 1.0.1-3
 - Fix some gobject introspection false positives (bz #1079643)
 
