@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -113,6 +113,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Apr 22 2014 Brian C. Lane <bcl@redhat.com> 1.1-2
+- Add missing source file
+
 * Tue Apr 22 2014 Brian C. Lane <bcl@redhat.com> 1.1-1
 - Upstream v1.1
   Drop patches now included in upstream
