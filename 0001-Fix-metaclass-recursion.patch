@@ -1,0 +1,60 @@
+# HG changeset patch
+# User cpopa
+# Date 1398150797 -10800
+# Branch ancestors
+# Node ID 7a9a377ae3f02f23354fdea6b6c1a34e3d6b75b1
+# Parent  eaa48b724e37578236a9c996d292fc135d7ead6e
+Skip the same infered nodes as the base class in _is_metaclass. Closes issue #25.
+
+diff --git a/scoped_nodes.py b/scoped_nodes.py
+--- a/scoped_nodes.py
++++ b/scoped_nodes.py
+@@ -681,6 +681,8 @@
+                     return False
+                 if baseobj is YES:
+                     continue
++                if baseobj is klass:
++                    continue
+                 if baseobj._type == 'metaclass':
+                     return True
+                 if _is_metaclass(baseobj):
+diff --git a/test/regrtest_data/recursion.py b/test/regrtest_data/recursion.py
+new file mode 100644
+--- /dev/null
++++ b/test/regrtest_data/recursion.py
+@@ -0,0 +1,3 @@
++""" For issue #25 """
++class Base(object):
++    pass
+\ No newline at end of file
+diff --git a/test/unittest_regrtest.py b/test/unittest_regrtest.py
+--- a/test/unittest_regrtest.py
++++ b/test/unittest_regrtest.py
+@@ -156,6 +156,27 @@
+         # context manager didn't use an assignment name.
+         list(astroid.nodes_of_class(nodes.CallFunc))[-1].infered()
+ 
++    def test_recursion_regression_issue25(self):
++        builder = AstroidBuilder()
++        data = """
++import recursion as base
++
++_real_Base = base.Base
++
++class Derived(_real_Base):
++    pass
++
++def run():
++    base.Base = Derived
++"""
++        astroid = builder.string_build(data, __name__, __file__)
++        # Used to crash in _is_metaclass, due to wrong
++        # ancestors chain
++        classes = astroid.nodes_of_class(nodes.Class)
++        for klass in classes:
++            # triggers the _is_metaclass call
++            klass.type
++
+ class Whatever(object):
+     a = property(lambda x: x, lambda x: x)
+ 
