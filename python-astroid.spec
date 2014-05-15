@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -114,6 +114,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Wed May 14 2014 Bohuslav Kabrda <bkabrda@redhat.com> - 1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
 * Wed Apr 23 2014 Brian C. Lane <bcl@redhat.com> 1.1-3
 - Add patch to fix metaclass recursion (upstream bug #25)
   https://bitbucket.org/logilab/astroid/issue/25/runtimeerror-maximum-recursion-depth
