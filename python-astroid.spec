@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -114,6 +114,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Wed May 14 2014 Bohuslav Kabrda <bkabrda@redhat.com> - 1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
 
