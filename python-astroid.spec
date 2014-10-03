@@ -5,29 +5,28 @@
 %endif
 
 # This needs to be pulled from the source tarball
-%global commit e003574ae51b
+%global commit 315668c10333
 
 
 Name:           python-astroid
-Version:        1.1
-Release:        5%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
 Source0:        https://bitbucket.org/logilab/astroid/get/astroid-%{version}.tar.bz2
-Patch0:         0001-Fix-metaclass-recursion.patch
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools python-tools
-BuildRequires:  python-logilab-common >= 0.61.0
-Requires:       python-logilab-common >= 0.61.0
+BuildRequires:  python-logilab-common >= 0.62.1
+Requires:       python-logilab-common >= 0.62.1
 %if 0%{?with_python3}
 BuildRequires:  python3-devel python3-setuptools python3-tools
-BuildRequires:  python3-logilab-common >= 0.61.0
+BuildRequires:  python3-logilab-common >= 0.62.1
 %endif # if with_python3
 
 %description
@@ -40,7 +39,7 @@ python module with some additional methods and attributes.
 %package -n python3-astroid
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
-Requires:       python3-logilab-common >= 0.61.0
+Requires:       python3-logilab-common >= 0.62.1
 
 %description -n python3-astroid
 The aim of this module is to provide a common base representation of
@@ -51,7 +50,6 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n logilab-astroid-%{commit}
-%patch0 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -114,6 +112,10 @@ popd
 %endif # with_python3
 
 %changelog
+* Fri Oct 03 2014 Brian C. Lane <bcl@redhat.com> 1.2.1-1
+- Upstream v1.2.1
+  Drop patches now included in upstream
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
