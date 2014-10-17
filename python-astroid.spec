@@ -10,12 +10,13 @@
 
 Name:           python-astroid
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
 Source0:        https://bitbucket.org/logilab/astroid/get/astroid-%{version}.tar.bz2
+Patch0:         0001-brain-gi-fix-glib-detection-1141440.patch
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
@@ -50,6 +51,7 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n logilab-astroid-%{commit}
+%patch0 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -112,6 +114,10 @@ popd
 %endif # with_python3
 
 %changelog
+* Fri Oct 17 2014 Brian C. Lane <bcl@redhat.com> 1.2.1-2
+- Add patch to fix GLib detection (#1141440)
+  https://bitbucket.org/logilab/astroid/issue/49
+
 * Fri Oct 03 2014 Brian C. Lane <bcl@redhat.com> 1.2.1-1
 - Upstream v1.2.1
   Drop patches now included in upstream
