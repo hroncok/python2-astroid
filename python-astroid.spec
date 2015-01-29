@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -22,10 +22,12 @@ Obsoletes:      python-logilab-astng <= 0.24.1
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools python-tools
+BuildRequires:  python-six
 BuildRequires:  python-logilab-common >= 0.63.2
 Requires:       python-logilab-common >= 0.63.2
 %if 0%{?with_python3}
 BuildRequires:  python3-devel python3-setuptools python3-tools
+BuildRequires:  python3-six
 BuildRequires:  python3-logilab-common >= 0.63.2
 %endif # if with_python3
 
@@ -69,9 +71,7 @@ popd
 %if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root %{buildroot}
-rm -rf %{buildroot}%{python3_sitelib}/astroid/test
-# Provided by the python3-logilab-common package
-rm -f %{buildroot}%{python3_sitelib}/logilab/__init__.*
+rm -rf %{buildroot}%{python3_sitelib}/astroid/tests
 # Fix encoding in readme
 for FILE in README; do
     iconv -f iso-8859-15 -t utf-8 $FILE > $FILE.utf8
@@ -81,9 +81,7 @@ popd
 %endif # with_python3
 
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
-rm -rf %{buildroot}%{python_sitelib}/astroid/test
-# Provided by the python-logilab-common package
-rm -f %{buildroot}%{python_sitelib}/logilab/__init__.*
+rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 # Fix encoding in readme
 for FILE in README; do
     iconv -f iso-8859-15 -t utf-8 $FILE > $FILE.utf8
@@ -112,6 +110,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Thu Jan 29 2015 Brian C. Lane <bcl@redhat.com> 1.3.4-2
+- Adjust paths for tests
+
 * Wed Jan 28 2015 Brian C. Lane <bcl@redhat.com> 1.3.4-1
 - Upstream v1.3.4
   Drop patches now included in upstream
