@@ -5,17 +5,19 @@
 %endif
 
 # This needs to be pulled from the source tarball
-%global commit 912ee5c11020
+%global commit bae72378bead
 
 
 Name:           python-astroid
-Version:        1.3.4
-Release:        2%{?dist}
+Version:        1.3.6
+Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
 Source0:        https://bitbucket.org/logilab/astroid/get/astroid-%{version}.tar.bz2
+
+Patch1:         0001-Fix-multiprocessing-on-py3.4.patch
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
@@ -52,6 +54,7 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n logilab-astroid-%{commit}
+%patch1 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -110,6 +113,11 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Apr 28 2015 Brian C. Lane <bcl@redhat.com> 1.3.6-1
+- Upstream v1.3.6
+- Fix for python3.4 multiprocessing
+  https://bitbucket.org/logilab/pylint/issue/265/
+
 * Thu Jan 29 2015 Brian C. Lane <bcl@redhat.com> 1.3.4-2
 - Adjust paths for tests
 
