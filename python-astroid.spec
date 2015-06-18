@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -113,6 +113,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Tue Apr 28 2015 Brian C. Lane <bcl@redhat.com> 1.3.6-1
 - Upstream v1.3.6
 - Fix for python3.4 multiprocessing
