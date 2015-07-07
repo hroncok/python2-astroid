@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -18,6 +18,7 @@ URL:            http://www.astroid.org
 Source0:        https://bitbucket.org/logilab/astroid/get/astroid-%{version}.tar.bz2
 
 Patch1:         0001-Fix-multiprocessing-on-py3.4.patch
+Patch2:         0001-brain-py2gi-Silence-pygi-deprecation-warnings.patch
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
@@ -113,6 +114,10 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> 1.3.6-3
+- Fix for pygi deprecation warnings
+  https://bitbucket.org/logilab/astroid/issue/86
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
