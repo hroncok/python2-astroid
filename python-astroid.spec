@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.3.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -56,6 +56,7 @@ python module with some additional methods and attributes.
 %prep
 %setup -q -n logilab-astroid-%{commit}
 %patch1 -p1
+%patch2 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -114,6 +115,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> 1.3.6-4
+- Helps if you actually APPLY the patch in question.
+
 * Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> 1.3.6-3
 - Fix for pygi deprecation warnings
   https://bitbucket.org/logilab/astroid/issue/86
