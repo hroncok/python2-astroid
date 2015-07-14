@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -19,6 +19,8 @@ Source0:        https://bitbucket.org/logilab/astroid/get/astroid-%{version}.tar
 
 Patch1:         0001-Fix-multiprocessing-on-py3.4.patch
 Patch2:         0001-brain-py2gi-Silence-pygi-deprecation-warnings.patch
+Patch3:         0003-Duplicate-calls-to-gi.require_version.patch
+Patch4:         0004-Ignore-exceptions-raised-by-gi.require_version.patch
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
@@ -57,6 +59,8 @@ python module with some additional methods and attributes.
 %setup -q -n logilab-astroid-%{commit}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -115,6 +119,10 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Jul 14 2015 Brian C. Lane <bcl@redhat.com> 1.3.6-5
+- Fixes for gi.require_version from dshea
+  https://bitbucket.org/logilab/astroid/pull-request/78
+
 * Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> 1.3.6-4
 - Helps if you actually APPLY the patch in question.
 
