@@ -10,7 +10,7 @@
 
 Name:           python-astroid
 Version:        1.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -123,6 +123,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
+
 * Thu Jul 30 2015 Brian C. Lane <bcl@redhat.com> 1.3.7-1
 - Upstream 1.3.7
 - Fix for subprocess communicate() timeout argument
