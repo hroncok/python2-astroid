@@ -4,39 +4,29 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 %endif
 
-# This needs to be pulled from the source tarball
-%global commit cda2deee65e3
-
-
 Name:           python-astroid
-Version:        1.3.7
-Release:        2%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
-Source0:        https://bitbucket.org/logilab/astroid/get/astroid-%{version}.tar.bz2
-
-Patch1:         0001-Fix-multiprocessing-on-py3.4.patch
-Patch2:         0001-brain-py2gi-Silence-pygi-deprecation-warnings.patch
-Patch3:         0003-Duplicate-calls-to-gi.require_version.patch
-Patch4:         0004-Ignore-exceptions-raised-by-gi.require_version.patch
-Patch5:         0005-Subprocess-communicate-has-a-different-signature-for.patch
-Patch6:         0006-logilab-common-requirement-should-be-1.0.0.patch
+Source0:        https://github.com/PyCQA/astroid/archive/astroid-%{version}.tar.gz
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
+Requires:  python-six
+Requires:  python-wrapt
+Requires:  python-lazy-object-proxy
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools python-tools
 BuildRequires:  python-six
-BuildRequires:  python-logilab-common >= 0.63.2
-Requires:       python-logilab-common >= 0.63.2
-%if 0%{?with_python3}
-BuildRequires:  python3-devel python3-setuptools python3-tools
-BuildRequires:  python3-six
-BuildRequires:  python3-logilab-common >= 0.63.2
-%endif # if with_python3
+BuildRequires:  python-wrapt
+BuildRequires:  python-lazy-object-proxy
+BuildRequires:  git
+
+Patch0001: 0001-UnicodeEncodeError-in-AsStringVisitor.visit_function.patch
 
 %description
 The aim of this module is to provide a common base representation of
@@ -48,7 +38,14 @@ python module with some additional methods and attributes.
 %package -n python3-astroid
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
-Requires:       python3-logilab-common >= 0.63.2
+Requires:       python3-six
+Requires:       python3-wrapt
+Requires:       python3-lazy-object-proxy
+BuildRequires:  python3-devel python3-setuptools python3-tools
+BuildRequires:  python3-six
+BuildRequires:  python3-wrapt
+BuildRequires:  python3-lazy-object-proxy
+BuildRequires:  git
 
 %description -n python3-astroid
 The aim of this module is to provide a common base representation of
@@ -58,13 +55,14 @@ python module with some additional methods and attributes.
 %endif # if with_python3
 
 %prep
-%setup -q -n logilab-astroid-%{commit}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%setup -q -n astroid-astroid-%{version}
+git init
+git config user.email "python-astroid-owner@fedoraproject.org"
+git config user.name "Fedora Ninjas"
+git add .
+git commit -a -q -m "%{version} baseline."
+git am %{patches}
+git tag -a %{name}-%{version} -m "baseline"
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -101,15 +99,6 @@ for FILE in README; do
     mv -f $FILE.utf8 $FILE
 done
 
-%check
-%{__python} setup.py test
-
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py test
-popd
-%endif # with_python3
-
 %files
 %doc README COPYING
 %{python_sitelib}/astroid
@@ -123,6 +112,16 @@ popd
 %endif # with_python3
 
 %changelog
+* Thu Dec 10 2015 Brian C. Lane <bcl@redhat.com> 1.4.1-1
+- Upstream 1.4.1
+- Drop included patches
+- Drop requirement on logilab-common
+- Add requirement on python-wrapt and python-lazy-object-proxy
+- New upstream source from GitHub
+- UnicodeEncodeError in AsStringVisitor.visit_functiondef
+  https://bitbucket.org/logilab/astroid/issues/273/regression-unicodeencodeerror-in
+- Remove %check section, the full tox tests cannot be run because of un-packaged requirements
+
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
