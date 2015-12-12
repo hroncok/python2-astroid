@@ -6,7 +6,7 @@
 
 Name:           python-astroid
 Version:        1.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -27,6 +27,7 @@ BuildRequires:  python-lazy-object-proxy
 BuildRequires:  git
 
 Patch0001: 0001-UnicodeEncodeError-in-AsStringVisitor.visit_function.patch
+Patch0002: 0002-Check-for-flags-enum-types-before-checking-for-int.patch
 
 %description
 The aim of this module is to provide a common base representation of
@@ -112,6 +113,10 @@ done
 %endif # with_python3
 
 %changelog
+* Fri Dec 11 2015 Brian C. Lane <bcl@redhat.com> 1.4.1-2
+- Check for flags/enum types before checking for int
+  Upstream PR https://github.com/PyCQA/astroid/pull/287
+
 * Thu Dec 10 2015 Brian C. Lane <bcl@redhat.com> 1.4.1-1
 - Upstream 1.4.1
 - Drop included patches
