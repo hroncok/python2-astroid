@@ -5,8 +5,8 @@
 %endif
 
 Name:           python-astroid
-Version:        1.4.1
-Release:        2%{?dist}
+Version:        1.4.3
+Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -25,9 +25,6 @@ BuildRequires:  python-six
 BuildRequires:  python-wrapt
 BuildRequires:  python-lazy-object-proxy
 BuildRequires:  git
-
-Patch0001: 0001-UnicodeEncodeError-in-AsStringVisitor.visit_function.patch
-Patch0002: 0002-Check-for-flags-enum-types-before-checking-for-int.patch
 
 %description
 The aim of this module is to provide a common base representation of
@@ -57,13 +54,6 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n astroid-astroid-%{version}
-git init
-git config user.email "python-astroid-owner@fedoraproject.org"
-git config user.name "Fedora Ninjas"
-git add .
-git commit -a -q -m "%{version} baseline."
-git am %{patches}
-git tag -a %{name}-%{version} -m "baseline"
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -84,35 +74,32 @@ popd
 pushd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root %{buildroot}
 rm -rf %{buildroot}%{python3_sitelib}/astroid/tests
-# Fix encoding in readme
-for FILE in README; do
-    iconv -f iso-8859-15 -t utf-8 $FILE > $FILE.utf8
-    mv -f $FILE.utf8 $FILE
-done
 popd
 %endif # with_python3
 
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
 rm -rf %{buildroot}%{python_sitelib}/astroid/tests
-# Fix encoding in readme
-for FILE in README; do
-    iconv -f iso-8859-15 -t utf-8 $FILE > $FILE.utf8
-    mv -f $FILE.utf8 $FILE
-done
 
 %files
-%doc README COPYING
+%doc README.rst
+%license COPYING
 %{python_sitelib}/astroid
 %{python_sitelib}/astroid*.egg-info
 
 %if 0%{?with_python3}
 %files -n python3-astroid
-%doc README COPYING
+%doc README.rst
+%license COPYING
 %{python3_sitelib}/astroid
 %{python3_sitelib}/astroid*.egg-info
 %endif # with_python3
 
 %changelog
+* Mon Jan 04 2016 Brian C. Lane <bcl@redhat.com> 1.4.3-1
+- Upstream 1.4.3
+- Drop included patches
+- Drop running iconv on README.rst
+
 * Fri Dec 11 2015 Brian C. Lane <bcl@redhat.com> 1.4.1-2
 - Check for flags/enum types before checking for int
   Upstream PR https://github.com/PyCQA/astroid/pull/287
