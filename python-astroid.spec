@@ -5,7 +5,7 @@
 %endif
 
 Name:           python-astroid
-Version:        1.4.3
+Version:        1.4.4
 Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
@@ -95,6 +95,9 @@ rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 %endif # with_python3
 
 %changelog
+* Mon Jan 18 2016 Brian C. Lane <bcl@redhat.com> 1.4.4-1
+- Upstream 1.4.4
+
 * Mon Jan 04 2016 Brian C. Lane <bcl@redhat.com> 1.4.3-1
 - Upstream 1.4.3
 - Drop included patches
