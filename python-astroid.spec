@@ -6,7 +6,7 @@
 
 Name:           python-astroid
 Version:        1.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -95,6 +95,9 @@ rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 %endif # with_python3
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Mon Jan 18 2016 Brian C. Lane <bcl@redhat.com> 1.4.4-1
 - Upstream 1.4.4
 
