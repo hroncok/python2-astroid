@@ -6,12 +6,14 @@
 
 Name:           python-astroid
 Version:        1.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
 URL:            http://www.astroid.org
 Source0:        https://github.com/PyCQA/astroid/archive/astroid-%{version}.tar.gz
+
+Patch0001:      0001-Ignore-PyGIWarning.patch
 
 Provides:       python-astroid = %{version}-%{release}
 Obsoletes:      python-logilab-astng <= 0.24.1
@@ -54,6 +56,7 @@ python module with some additional methods and attributes.
 
 %prep
 %setup -q -n astroid-astroid-%{version}
+%patch0001 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -95,6 +98,10 @@ rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 %endif # with_python3
 
 %changelog
+* Wed Apr 27 2016 Brian C. Lane <bcl@redhat.com> - 1.4.5-2
+- Ignore PyGIWarning (#1330651)
+  Upstream PR https://github.com/PyCQA/astroid/pull/333
+
 * Thu Apr 07 2016 Brian C. Lane <bcl@redhat.com> 1.4.5-1
 - Upstream 1.4.5
 
@@ -121,7 +128,7 @@ rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 - New upstream source from GitHub
 - UnicodeEncodeError in AsStringVisitor.visit_functiondef
   https://bitbucket.org/logilab/astroid/issues/273/regression-unicodeencodeerror-in
-- Remove %check section, the full tox tests cannot be run because of un-packaged requirements
+- Remove %%check section, the full tox tests cannot be run because of un-packaged requirements
 
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5

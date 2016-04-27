@@ -1,0 +1,43 @@
+From 96dbb797e7d1a5f5c7f59b53a54b49bf0fd2ed9c Mon Sep 17 00:00:00 2001
+From: Giuseppe Scrivano <gscrivan@redhat.com>
+Date: Wed, 27 Apr 2016 15:12:45 +0200
+Subject: [PATCH] Ignore PyGIWarning
+
+It solves this error when running PyLint on a file which uses gi introspection:
+
+/usr/lib/python2.7/site-packages/astroid/brain/brain_gi.py:136: PyGIWarning: OSTree was \
+imported without specifying a version first. Use gi.require_version('OSTree', '1.0') before \
+import to ensure that the right version gets loaded.
+
+Signed-off-by: Giuseppe Scrivano <gscrivan@redhat.com>
+---
+ astroid/brain/brain_gi.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/astroid/brain/brain_gi.py b/astroid/brain/brain_gi.py
+index 62b013c..3c24248 100644
+--- a/astroid/brain/brain_gi.py
++++ b/astroid/brain/brain_gi.py
+@@ -133,16 +133,17 @@ def _import_gi_module(modname):
+             modcode = ''
+             for m in itertools.chain(modnames, optional_modnames):
+                 try:
+-                    __import__(m)
+                     with warnings.catch_warnings():
+                         # Just inspecting the code can raise gi deprecation
+                         # warnings, so ignore them.
+                         try:
+-                            from gi import PyGIDeprecationWarning
++                            from gi import PyGIDeprecationWarning, PyGIWarning
+                             warnings.simplefilter("ignore", PyGIDeprecationWarning)
++                            warnings.simplefilter("ignore", PyGIWarning)
+                         except Exception:
+                             pass
+ 
++                        __import__(m)
+                         modcode += _gi_build_stub(sys.modules[m])
+                 except ImportError:
+                     if m not in optional_modnames:
+-- 
+2.5.5
+
