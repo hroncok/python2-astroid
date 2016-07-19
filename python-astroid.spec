@@ -6,7 +6,7 @@
 
 Name:           python-astroid
 Version:        1.4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -98,6 +98,9 @@ rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 %endif # with_python3
 
 %changelog
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.5-3
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Wed Apr 27 2016 Brian C. Lane <bcl@redhat.com> - 1.4.5-2
 - Ignore PyGIWarning (#1330651)
   Upstream PR https://github.com/PyCQA/astroid/pull/333
