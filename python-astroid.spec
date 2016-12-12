@@ -6,7 +6,7 @@
 
 Name:           python-astroid
 Version:        1.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -98,6 +98,9 @@ rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 %endif # with_python3
 
 %changelog
+* Mon Dec 12 2016 Charalampos Stratakis <cstratak@redhat.com> - 1.4.5-4
+- Rebuild for Python 3.6
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.5-3
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
