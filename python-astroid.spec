@@ -5,8 +5,8 @@
 %endif
 
 Name:           python-astroid
-Version:        1.4.5
-Release:        4%{?dist}
+Version:        1.4.8
+Release:        1%{?dist}
 Summary:        Python Abstract Syntax Tree New Generation
 Group:          Development/Languages
 License:        GPLv2+
@@ -98,6 +98,9 @@ rm -rf %{buildroot}%{python_sitelib}/astroid/tests
 %endif # with_python3
 
 %changelog
+* Wed Dec 14 2016 Charalampos Stratakis <cstratak@redhat.com> - 1.4.8-1
+- Upstream 1.4.8
+
 * Mon Dec 12 2016 Charalampos Stratakis <cstratak@redhat.com> - 1.4.5-4
 - Rebuild for Python 3.6
 
