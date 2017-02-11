@@ -35,7 +35,7 @@ trees by inspecting living objects.
 
 Name:           python-astroid
 Version:        1.4.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 Group:          Development/Languages
 License:        GPLv2+
@@ -139,6 +139,9 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %endif # with_python3
 
 %changelog
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Wed Dec 21 2016 Adam Williamson <awilliam@redhat.com> - 1.4.9-1
 - New release 1.4.9
 - Backport a patch from master branch to fix Python 3.6 compatibility
