@@ -12,10 +12,8 @@ methods and attributes for different usages. They include some support for \
 static inference and local name scopes. Furthermore, astroid builds partial \
 trees by inspecting living objects.
 
-# Enable Python 3 builds for Fedora + EPEL >6
+# Enable Python 3 builds for Fedora + EPEL >= 6
 %if 0%{?fedora} || 0%{?rhel} >= 6
-# If the definition isn't available for python3_pkgversion, define it
-%{?!python3_pkgversion:%global python3_pkgversion 3}
 %bcond_without  python3
 %else
 %bcond_with     python3
@@ -26,12 +24,6 @@ trees by inspecting living objects.
 %global t_requires python-six python-wrapt python-lazy-object-proxy python-singledispatch
 %global t3_requires python%{python3_pkgversion}-six python%{python3_pkgversion}-wrapt python%{python3_pkgversion}-lazy-object-proxy
 # singledispatch comes from functools on py3
-
-%if 0%{?fedora} > 12
-%global with_python3 1
-%else
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
-%endif
 
 Name:           python-astroid
 Version:        1.4.9
@@ -139,6 +131,9 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %endif # with_python3
 
 %changelog
+* Thu Mar 9 2017 Orion Poplawski <orion@cora.nwra.com> - 1.4.9-3
+- Minor cleanup
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
