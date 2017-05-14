@@ -26,8 +26,8 @@ trees by inspecting living objects.
 # singledispatch comes from functools on py3
 
 Name:           python-astroid
-Version:        1.4.9
-Release:        2%{?dist}
+Version:        1.5.2
+Release:        1%{?dist}
 Summary:        %{sum}
 Group:          Development/Languages
 License:        GPLv2+
@@ -131,6 +131,9 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %endif # with_python3
 
 %changelog
+* Sun May 14 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-1
+- new version
+
 * Thu Mar 9 2017 Orion Poplawski <orion@cora.nwra.com> - 1.4.9-3
 - Minor cleanup
 
