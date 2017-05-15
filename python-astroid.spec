@@ -21,7 +21,7 @@ trees by inspecting living objects.
 
 # Requirements for tests (BuildRequires) and run (Requires)
 # EPEL builds do not provide python2-*
-%global t_requires python-six python-wrapt python-lazy-object-proxy python-singledispatch
+%global t_requires python-six python-wrapt python-lazy-object-proxy python-singledispatch python2-backports-functools_lru_cache
 %global t3_requires python%{python3_pkgversion}-six python%{python3_pkgversion}-wrapt python%{python3_pkgversion}-lazy-object-proxy
 # singledispatch comes from functools on py3
 
@@ -125,6 +125,7 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %changelog
 * Mon May 15 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-2
 - use correct github commit
+- adjusted requirements, we need backports-functools_lru_cache now
 
 * Sun May 14 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-1
 - new version
