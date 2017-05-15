@@ -1,6 +1,6 @@
 %global github_owner    PyCQA
 %global github_name     astroid
-%global github_commit   890d8baf1fa8d3456cb9bf0db4a76229f7a29773
+%global github_commit   1602965b4ef3ce54807de425bfc5bb2073d0c4d8 
 
 %global sum Common base representation of python source code for pylint and other projects
 %global desc The aim of this module is to provide a common base representation of python \
@@ -27,20 +27,12 @@ trees by inspecting living objects.
 
 Name:           python-astroid
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 Group:          Development/Languages
 License:        GPLv2+
 URL:            https://github.com/%{github_owner}/%{github_name}
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{version}.tar.gz
-
-Patch0001:      0001-Ignore-PyGIWarning.patch
-# Fix for Python 3.6 compatibility. This is:
-# https://patch-diff.githubusercontent.com/raw/PyCQA/astroid/pull/365.patch
-# re-based on 1.4.9.
-Patch0002:      365-rebased.patch
-# Re-diffed backport of 1b34d34e87a014d1ad96263169b25ecf34e900cb
-#Patch0003:      test.patch
 
 Obsoletes:      python-logilab-astng <= 0.24.1
 
@@ -131,6 +123,9 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %endif # with_python3
 
 %changelog
+* Mon May 15 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-2
+- use correct github commit
+
 * Sun May 14 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-1
 - new version
 
