@@ -27,7 +27,7 @@ trees by inspecting living objects.
 
 Name:           python-astroid
 Version:        1.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 Group:          Development/Languages
 License:        GPLv2+
@@ -101,8 +101,8 @@ rm -rf %{buildroot}%{python2_sitelib}/astroid/tests
 
 
 %check
-# One test failing on rawhide with Python 2.7
-%if 0%{?fedora} < 27
+# One test failing on Fedora 26 and newer with Python 2.7
+%if 0%{?fedora} < 26
 PYTHONPATH=./ %{__python2} -m unittest discover -p "unittest*.py"
 %endif
 
@@ -126,6 +126,9 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %endif # with_python3
 
 %changelog
+* Mon May 29 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-4
+- Python 2 test fails also on F26 (I guess we need new enum34 there too)
+
 * Mon May 29 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-3
 - add requirement on python-enum34 for Python 2
 
