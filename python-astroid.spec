@@ -26,8 +26,8 @@ trees by inspecting living objects.
 # singledispatch comes from functools on py3
 
 Name:           python-astroid
-Version:        1.5.2
-Release:        4%{?dist}
+Version:        1.5.3
+Release:        1%{?dist}
 Summary:        %{sum}
 Group:          Development/Languages
 License:        GPLv2+
@@ -126,6 +126,9 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %endif # with_python3
 
 %changelog
+* Mon Jun 19 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.3-1
+- new version
+
 * Mon May 29 2017 Christian Dersch <lupinix@mailbox.org> - 1.5.2-4
 - Python 2 test fails also on F26 (I guess we need new enum34 there too)
 
