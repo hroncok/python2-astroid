@@ -27,7 +27,7 @@ trees by inspecting living objects.
 
 Name:           python-astroid
 Version:        1.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 Group:          Development/Languages
 License:        GPLv2+
@@ -126,6 +126,9 @@ PYTHONPATH=./ %{__python3} -m unittest discover -p "unittest*.py"
 %endif # with_python3
 
 %changelog
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
