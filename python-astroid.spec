@@ -102,7 +102,7 @@ rm -rf %{buildroot}%{python2_sitelib}/astroid/tests
 
 %check
 # One test failing on Fedora 26 and newer with Python 2.7
-%if 0%{?fedora} < 26
+%if 0%{?fedora} < 26 && 0%{?rhel} <= 7
 PYTHONPATH=./ %{__python2} -m unittest discover -p "unittest*.py"
 %endif
 
